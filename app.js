@@ -35,7 +35,7 @@ app.post("/delete",(req,res) => {
 })
 
 app.get("/view",(req,res) => {
-    studentmodel.find().then(
+    studentmodel.find().then(           //promise
         (data) => {
             res.json(data)
         }
@@ -49,6 +49,6 @@ app.get("/view",(req,res) => {
 
 
 
-app.listen(8080,() => {
+app.listen(8081,() => {
     console.log("server started")
 })
