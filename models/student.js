@@ -1,10 +1,10 @@
 const mongoose = require("mongoose")
 const schema=mongoose.Schema(
     {
-        "name":String,
-        "rollno":String,
-        "admnno":String,
-        "college":String
+        "name":{type:String,required:true},
+        "rollno":{type:String,required:true},
+        "admnno":{type:String,required:true},
+        "college":{type:String,required:true}
     }
 )
 
