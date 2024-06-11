@@ -2,11 +2,16 @@
 const express=require("express")
 const mongoose=require("mongoose")
 const cors=require("cors")
-const student=require("./models/students")
+const {studentmodel}=require("./models/student")
+
 
 //call functions
 const app=express()
 app.use(cors())
+app.use(express.json())
+
+//mongodb connection
+mongoose.connect("mongodb+srv://safabeegum:mongodb24@cluster0.pbzbbey.mongodb.net/studentdb?retryWrites=true&w=majority&appName=Cluster0")
 
 //API functions
 app.get("/",(req,res) => {
@@ -14,9 +19,12 @@ app.get("/",(req,res) => {
 })
 
 app.post("/add",(req,res) => {
-    res.send("Welcome to my Add Page")
+    let input=req.body      //read input
+    // console.log(input)          //to check input is crct
+    let student=new studentmodel(input)
+    student.save()
+    res.json({status:"success"})            //to see API response
 })
-
 
 app.post("/search",(req,res) => {
     res.send("Search Page")
@@ -27,8 +35,18 @@ app.post("/delete",(req,res) => {
 })
 
 app.get("/view",(req,res) => {
-    res.send("View Page")
+    studentmodel.find().then(
+        (data) => {
+            res.json(data)
+        }
+    ).catch(
+        (error) => {
+            res.json(error)
+        }
+    )
 })
+
+
 
 
 app.listen(8080,() => {
